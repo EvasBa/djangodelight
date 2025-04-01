@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Ingredient List</h1>
+<ul>
+    {% for ingridient in ingridients %}
+        <li>{{ ingridient.name }} - {{ ingridient.quantity }} {{ ingridient.unit }}</li>
+    {% endfor %}
+</ul>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Unit</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ingridient in ingridients %}
+            <tr>
+                <td>{{ ingridient.name }}</td>
+                <td>{{ ingridient.quantity }}</td>
+                <td>{{ ingridient.unit }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
