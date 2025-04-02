@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Recipe Requirements</h2>
+<table class="min-w-full border border-gray-300">
+    <thead class="bg-gray-200 border-b">
+        <tr>
+            <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Menu Item</th>
+            <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">ingridient</th>
+            <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for requirement in recipe_requirements %}
+        <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ requirement.menu_item }}</td>
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ requirement.ingredient }}</td>
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ requirement.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
