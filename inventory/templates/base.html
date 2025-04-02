@@ -41,10 +41,12 @@
                         </div>
                         
                         <!-- User Authentication Links -->
-                         {% comment %}
+                         
                         <div class="mt-4 lg:mt-0">
                             {% if user.is_authenticated %}
                                 <span class="text-sm text-gray-600 mr-2">Hello, {{ user.username }}</span>
+                                {% endif %}
+                                {% comment %}
                                 <a href="{% url 'profile' %}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-600 border-gray-600 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-0 mr-2">Profile</a>
                                 <a href="{% url 'logout' %}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-600 border-gray-600 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-0">Logout</a>
                             {% else %}

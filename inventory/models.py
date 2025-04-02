@@ -24,6 +24,8 @@ class MenuItem(models.Model):
 
     def __str__(self):
         return self.title
+    
+    
 
 class RecipeRequirements(models.Model):
     '''
@@ -46,3 +48,16 @@ class Purchase(models.Model):
 
     def __str__(self):
         return f"{self.menu_item} - {self.time_stamp}"
+    
+    def get_total_revenue(self):
+        return self.menu_item.price_perunit * self.quantity
+    
+    def get_total_cost(self):
+        total_cost = 0
+        recipe_requirements = RecipeRequirements.objects.filter(menu_item=self.menu_item)
+        for requirement in recipe_requirements:
+            total_cost += requirement.ingredient.unit_price * requirement.quantity
+        return total_cost
+    
+    def get_absolute_url(self):
+        return "/purchases"
