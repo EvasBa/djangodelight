@@ -1,28 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Ingredient List</h1>
-<ul>
-    {% for ingridient in ingridients %}
-        <li>{{ ingridient.name }} - {{ ingridient.quantity }} {{ ingridient.unit }}</li>
-    {% endfor %}
-</ul>
-<table>
-    <thead>
+
+<div class="flex justify-between mb-4">
+<table class="min-w-full border border-gray-300">
+    <thead class="bg-gray-200 border-b">
         <tr>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Unit</th>
+            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Name</th>
+            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Quantity</th>
+            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Unit</th>
+            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Unit price</th>
         </tr>
     </thead>
     <tbody>
         {% for ingridient in ingridients %}
-            <tr>
-                <td>{{ ingridient.name }}</td>
-                <td>{{ ingridient.quantity }}</td>
-                <td>{{ ingridient.unit }}</td>
+            <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ ingridient.name }}</td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ ingridient.quantity }}</td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ ingridient.unit }}</td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ ingridient.unit_price }}</td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
+</div>
+<div>
+<h2 class="text-2xl font-bold mt-4"> Total ingridients: {{ total_ingridients }}</h2>
+<h2 class = "text-2xl font-bold mt-4"> Total value: {{ total_value }}</h2>
+</div>
 
 {% endblock %}
