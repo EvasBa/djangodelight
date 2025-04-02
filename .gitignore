@@ -1,0 +1,40 @@
+# Python-related files
+__pycache__/
+*.py[cod]
+
+# Django-related files
+db.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# Django migrations
+inventory/migrations/
+
+# Static files (generated or compiled)
+inventory/static/css/
+inventory/static/src/
+inventory/static/inventory/
+
+# Node.js-related files
+node_modules/
+package-lock.json
+
+# Tailwind CSS-related files
+tailwind.config.js
+postcss.config.js
+
+# Environment variables
+.env
+
+# VS Code settings
+.vscode/
+
+# Compiled files
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

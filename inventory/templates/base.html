@@ -1,20 +1,24 @@
 {% load static %}
-<!DOCTYPE html lang="en">
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Django Delights</title>
-        {% block head %}
-        {% endblock %}
-    </head>    
-    <body>
-        <header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Delights</title>
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
+    {% block head %}
+    {% endblock %}
+</head>    
+<body class="bg-gray-100">
+    <header class="bg-white shadow">
+        <nav class="container mx-auto px-6 py-3">
             {% block header %}
             {% endblock %}
-        </header>
+        </nav>
+    </header>
+    <main class="container mx-auto px-6 py-8">
         {% block content %}
-
-        
         {% endblock %}
-    </body>
+    </main>
+</body>
 </html>
