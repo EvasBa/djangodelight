@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Are you sure you want to delete "{{ object.name }}"?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+    <a href="/ingridients/" class="bg-gray-500 text-white px-4 py-2 rounded">Cancel</a>
+</form>
+{% endblock %}
