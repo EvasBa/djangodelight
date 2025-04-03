@@ -52,6 +52,14 @@ class Purchase(models.Model):
     def __str__(self):
         return f"{self.menu_item} - {self.time_stamp}"
     
+    def enough_stock(self):
+        recipe_requirements = RecipeRequirements.objects.filter(menu_item=self.menu_item)
+        for requirement in recipe_requirements:
+            if requirement.ingredient.quantity < requirement.quantity * self.quantity:
+                return False
+        return True
+    
+    
     def get_total_revenue(self):
         return self.menu_item.price_perunit * self.quantity
     

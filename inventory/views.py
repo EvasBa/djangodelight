@@ -56,11 +56,46 @@ class PurchaseListView(ListView):
     template_name = 'inventory/purchase_list.html'
     context_object_name = 'purchases'
 
+class PurchaseCreateView(CreateView):
+    model = Purchase
+    form_class = PurchaseForm
+    template_name = 'inventory/purchase_create.html'
+
+    def form_valid(self, form):
+        # Check if the purchase can be made based on stock availability
+        menu_item = form.cleaned_data['menu_item']
+        quantity = form.cleaned_data['quantity']
+        enough_stock = form.instance.enough_stock()
+        if not enough_stock:
+            form.add_error('menu_item', 'Not enough stock for this purchase.')
+            return self.form_invalid(form)
+        else:
+            # Deduct the stock from the ingredients
+            recipe_requirements = RecipeRequirements.objects.filter(menu_item=menu_item)
+            for requirement in recipe_requirements:
+                ingredient = requirement.ingredient
+                ingredient.quantity -= requirement.quantity * quantity
+                ingredient.save()
+        return super().form_valid(form)
+
 # MenuItem class view
 class MenuItemListView(ListView):
     model = MenuItem
     template_name = 'inventory/menu_item_list.html'
     context_object_name = 'menu_items'
+
+class MenuItemCreateView(CreateView):
+    model = MenuItem
+    form_class = MenuItemForm
+    template_name = 'inventory/menu_item_create.html'
+
+    def form_valid(self, form):
+        # Check if the menu item already exists
+        title = form.cleaned_data['title']
+        if MenuItem.objects.filter(title=title).exists():
+            form.add_error('title', 'This menu item already exists.')
+            return self.form_invalid(form)
+        return super().form_valid(form)
 
 
 # RecipeRequirements class view
@@ -68,6 +103,22 @@ class RecipeRequirementsListView(ListView):
     model = RecipeRequirements
     template_name = 'inventory/recipe_requirements_list.html'
     context_object_name = 'recipe_requirements'
+
+class RecipeRequirementsCreateView(CreateView):
+    model = RecipeRequirements
+    form_class = RecipeRequirementForm
+    template_name = 'inventory/recipe_requirements_create.html'
+
+    def form_valid(self, form):
+        # Check if the recipe requirement already exists
+        menu_item = form.cleaned_data['menu_item']
+        ingredient = form.cleaned_data['ingredient']
+        if RecipeRequirements.objects.filter(menu_item=menu_item, ingredient=ingredient).exists():
+            form.add_error('ingredient', 'This recipe requirement already exists.')
+            return self.form_invalid(form)
+        return super().form_valid(form)
+
+
 
 # Report class view 
 class ReportView(TemplateView):

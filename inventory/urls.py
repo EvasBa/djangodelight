@@ -8,8 +8,11 @@ urlpatterns = [
     path("ingridients/<int:pk>/delete/", views.IngridientDeleteView.as_view(), name="ingridient_delete"),
     path("ingridients/<int:pk>/update/", views.IngridientUpdateView.as_view(), name="ingridient_update"),
     path("purchases/", views.PurchaseListView.as_view(), name="purchases_list"),
+    path("purchases/new/", views.PurchaseCreateView.as_view(), name="purchases_create"),
     path("menu/", views.MenuItemListView.as_view(), name="menu_item_list"),
+    path("menu/new/", views.MenuItemCreateView.as_view(), name="menu_item_create"),
     path("reciperequirement/", views.RecipeRequirementsListView.as_view(), name="recipe_requirements_item_list"),
+    path("reciperequirement/new/", views.RecipeRequirementsCreateView.as_view(), name="recipe_requirements_create"),
     path("reports/", views.ReportView.as_view(), name="report"),
 ]
 
