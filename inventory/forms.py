@@ -5,6 +5,13 @@ class IngridientForm(forms.ModelForm):
     class Meta:
         model = Ingridient
         fields = "__all__"
+        labels = {
+            'name': 'Ingredient Name',
+            'quantity': 'Quantity',
+            'unit': 'Unit',
+            'unit_price': 'Unit Price',
+        }
+        
 
 class MenuItemForm(forms.ModelForm):
     class Meta:

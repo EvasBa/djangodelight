@@ -7,8 +7,9 @@ from django.urls import reverse_lazy
 
 # homepage view
 def HomeView(request):
-    cntxt = {"Title": "Django Delights"}
-    return render(request, 'inventory/home.html', cntxt)
+    context = {"Title": "Django Delights"}
+    context['MenuItems'] = MenuItem.objects.all()
+    return render(request, 'inventory/home.html', context)
 
 # Ingridient class view
 class IngridientListView(ListView):

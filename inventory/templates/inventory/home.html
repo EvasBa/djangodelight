@@ -1,8 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>
-    {{ Title }}
-</h1>
+<h1 class="font-bold">{{ title }}</h1>
+<div class="grid grid-cols-2 gap-4">
+    {% for item in MenuItems %}
+    <div class="border rounded-lg shadow-lg shadow-purple-300 p-4">
+        <h2 class="text-lg font-semibold">{{ item.title }}</h2>    
+        <p>{{ item.description }}</p>
+        <p class="text-gray-700">Price: {{ item.price_perunit }}</p>
+        {% if item.picture %}
+        <img src="{{ item.picture.url }}" alt="{{ item.title }}" class="w-32 h-32 object-cover mt-2">
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
