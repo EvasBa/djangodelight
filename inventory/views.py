@@ -1,12 +1,15 @@
-from django.shortcuts import render
-from .forms import IngridientForm, MenuItemForm, PurchaseForm, RecipeRequirementForm
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import IngridientForm, MenuItemForm, PurchaseForm, RecipeRequirementForm, CustomUserCreationForm
 from .models import Ingridient, MenuItem, Purchase, RecipeRequirements
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
-from django.urls import reverse_lazy
+from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.decorators import login_required
 
-# homepage view
+
 def HomeView(request):
+    '''Home view for the inventory app'''
     context = {"Title": "Django Delights"}
     context['MenuItems'] = MenuItem.objects.all()
     return render(request, 'inventory/home.html', context)
@@ -131,3 +134,34 @@ class ReportView(TemplateView):
         context['total_profit'] = context['total_revenue'] - context['total_cost']
         context['total_purchases'] = Purchase.objects.count()
         return context
+
+def log_in(request):
+    if request.method == 'POST':
+        email = request.POST['emai;l']
+        password = request.POST['password']
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)  # Correct usage
+            return redirect('home')  # Redirect to the homepage or another page
+        else:
+            return render(request, 'inventory/login.html', {'error': 'Invalid email or password'})
+    return render(request, 'inventory/login.html')
+
+def log_out(request):
+    logout(request)
+    return redirect('home')
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.is_approved = False
+            user.is_staff = False
+            user.save()
+            messages.success(request, 'Registration successful. Please wait for approval.')
+            
+            return redirect('login')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'inventory/register.html', {'form': form})

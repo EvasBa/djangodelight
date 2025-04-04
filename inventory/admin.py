@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Ingridient, MenuItem, Purchase, RecipeRequirements
+from .models import Ingridient, MenuItem, Purchase, RecipeRequirements, CustomUser
 
 # Register your models here.
 @admin.register(Ingridient)
@@ -21,3 +21,24 @@ class RecipeRequirementsAdmin(admin.ModelAdmin):
 class PurchaseAdmin(admin.ModelAdmin):
     list_display = ('menu_item', 'time_stamp', 'quantity')
     search_fields = ('menu_item__title',)
+
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'email')
+    search_fields = ('email',)
+    add_fieldsets = (
+        (None, {
+            'fields': ('first_name', 'last_name', 'email', 'password1', 'password2')
+        }),
+    )
+    fieldsets = (
+        (None, {
+            'fields': ('first_name', 'last_name', 'email')
+        }),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('first_name', 'last_name', 'email', 'password1', 'password2')}
+        ),
+    )

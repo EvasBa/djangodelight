@@ -84,6 +84,12 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'inventory.CustomUser'  # Custom user model
+AUTHENTICATION_BACKENDS = [
+    'inventory.backends.CustomAuthBackend',  # Custom authentication backend
+    'django.contrib.auth.backends.ModelBackend',  # Default authentication backend
+    
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -120,9 +126,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 # Static files configuration (Django 5.1+)
-STATIC_URL = 'static/'  # URL to access static files
+STATIC_URL = '/static/'  # URL to access static files
 STATICFILES_DIRS = [BASE_DIR / "static"]  # Additional directories for static files
 STATIC_ROOT = BASE_DIR / "staticfiles"  # Directory for collected static files in production
+
 
 # Media files configuration (if needed)
 MEDIA_URL = 'media/'

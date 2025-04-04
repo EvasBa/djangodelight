@@ -27,17 +27,26 @@
                 {% block header %}
                     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                         <div class="text-sm lg:flex-grow">
-                            {% comment %}
+                            
                             <a href="{% url 'home' %}" class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-4 {% if request.path == '/' %}font-bold text-gray-900{% endif %}">
                                 Home
                             </a>
-                            <a href="{% url 'about' %}" class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-4 {% if 'about' in request.path %}font-bold text-gray-900{% endif %}">
-                                About
+                            <a href="{% url 'menu_item_list' %}" class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-4 {% if 'about' in request.path %}font-bold text-gray-900{% endif %}">
+                                Menu List
                             </a>
-                            <a href="{% url 'contact' %}" class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 {% if 'contact' in request.path %}font-bold text-gray-900{% endif %}">
-                                Contact
+                            <a href="{% url 'recipe_requirements_item_list' %}" class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-4 {% if 'about' in request.path %}font-bold text-gray-900{% endif %}">
+                                Recipes
                             </a>
-                            {% endcomment %}
+                            <a href="{% url 'ingridient_list' %}" class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-4 {% if 'about' in request.path %}font-bold text-gray-900{% endif %}">
+                                Ingridients
+                            </a>
+                            <a href="{% url 'purchases_list' %}" class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-4 {% if 'about' in request.path %}font-bold text-gray-900{% endif %}">
+                                Purchases
+                            </a>
+                            <a href="{% url 'report' %}" class="block mt-4 lg:inline-block lg:mt-0 text-gray-600 hover:text-gray-900 mr-4 {% if 'about' in request.path %}font-bold text-gray-900{% endif %}">
+                                Report
+                            </a>
+
                         </div>
                         
                         <!-- User Authentication Links -->
@@ -45,16 +54,19 @@
                         <div class="mt-4 lg:mt-0">
                             {% if user.is_authenticated %}
                                 <span class="text-sm text-gray-600 mr-2">Hello, {{ user.username }}</span>
-                                {% endif %}
-                                {% comment %}
-                                <a href="{% url 'profile' %}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-600 border-gray-600 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-0 mr-2">Profile</a>
+                                
+                                
+                                
                                 <a href="{% url 'logout' %}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-600 border-gray-600 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-0">Logout</a>
                             {% else %}
+                           
                                 <a href="{% url 'login' %}" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-600 border-gray-600 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-0 mr-2">Login</a>
+                                {% comment %}
                                 <a href="{% url 'register' %}" class="inline-block text-sm px-4 py-2 leading-none border rounded bg-blue-600 text-white hover:bg-blue-700 mt-4 lg:mt-0">Register</a>
-                            {% endif %}
+                               {% endcomment %}
+                                {% endif %}
                         </div>
-                        {% endcomment %}
+                       
                     </div>
                 {% endblock %}
             </div>

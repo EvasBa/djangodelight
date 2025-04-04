@@ -1,5 +1,16 @@
 from django import forms
-from .models import Ingridient, MenuItem, Purchase, RecipeRequirements
+from .models import Ingridient, MenuItem, Purchase, RecipeRequirements, CustomUser
+from django.contrib.auth.forms import UserCreationForm
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = CustomUser
+        fields = ('first_name', 'last_name', 'email', 'password1', 'password2')
+        labels = {
+            'email': 'email',
+            'password1': 'Password',
+            'password2': 'Confirm Password',
+        }
 
 class IngridientForm(forms.ModelForm):
     class Meta:
