@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>Menu</h2>
+
+<div class="flex justify-between items-center mb-4">
+    <button onclick="window.location.href='{% url 'menu_item_create' %}'" class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 mr-4">
+        Create New Menu Item
+    </button>
+    <button onclick="window.location.href='{% url 'purchases_create' %}'" class="bg-green-500 text-white px-6 py-3 rounded hover:bg-green-600">
+        Make a Purchase
+    </button>
+</div>
+
 <table class="min-w-full border border-gray-300">
     <thead class="bg-gray-200 border-b">
         <tr>
@@ -8,6 +18,7 @@
             <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Title</th>
             <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Price</th>
             <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Description</th>
+            <th class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +36,14 @@
             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ item.title }}</td>
             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ item.price_perunit }}</td>
             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ item.description }}</td>
+            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                <button onclick="window.location.href='{% url 'menu_item_update' item.id %}'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Edit
+                </button>
+                <button onclick="window.location.href='{% url 'menu_item_delete' item.id %}'" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2">
+                    Delete
+                </button>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

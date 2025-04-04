@@ -1,14 +1,14 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class CustomUserManager(BaseUserManager):
-    '''
-    Custom manager for the CustomUser model.
-    '''
+    """
+    Custom manager for CustomUser to handle user creation.
+    """
     def create_user(self, email, password=None, **extra_fields):
         if not email:
-            raise ValueError('The email field must be set')
+            raise ValueError('The Email field must be set')
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -17,15 +17,16 @@ class CustomUserManager(BaseUserManager):
 
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_approved', True)
+        extra_fields.setdefault('is_superuser', True)
+
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_approved') is not True:
-            raise ValueError('Superuser must have is_approved=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
 
         return self.create_user(email, password, **extra_fields)
 
-class CustomUser(AbstractBaseUser):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     '''
     Custom user model for the restaurant application.
     '''
@@ -33,7 +34,11 @@ class CustomUser(AbstractBaseUser):
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    date_joined = models.DateTimeField(auto_now_add=True)
     is_approved = models.BooleanField(default=False)
+
+    objects = CustomUserManager() # Custom user manager
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -47,7 +52,7 @@ class Ingridient(models.Model):
     Represents a single ingredient in the restaurant's inventory
     '''
     name = models.CharField(max_length=100)
-    quantity = models.IntegerField()
+    quantity = models.DecimalField(max_digits=10, decimal_places=2)
     unit = models.CharField(max_length=10)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -68,6 +73,9 @@ class MenuItem(models.Model):
     def __str__(self):
         return self.title
     
+    def get_absolute_url(self):
+        return '/menu'
+    
     
 
 class RecipeRequirements(models.Model):
@@ -76,10 +84,12 @@ class RecipeRequirements(models.Model):
     '''
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingridient, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=0)
+    quantity = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
         return f"{self.menu_item} - {self.ingredient}"
+    def get_absolute_url(self):
+        return '/reciperequirement'
     
     
 class Purchase(models.Model):

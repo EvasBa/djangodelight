@@ -127,7 +127,7 @@ USE_TZ = True
 
 # Static files configuration (Django 5.1+)
 STATIC_URL = '/static/'  # URL to access static files
-STATICFILES_DIRS = [BASE_DIR / "static"]  # Additional directories for static files
+#STATICFILES_DIRS = [BASE_DIR / "static"]  # Additional directories for static files
 STATIC_ROOT = BASE_DIR / "staticfiles"  # Directory for collected static files in production
 
 

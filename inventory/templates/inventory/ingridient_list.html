@@ -2,6 +2,12 @@
 {% block content %}
 
 <div class="flex justify-between mb-4">
+    <h1 class="text-2xl font-bold">Ingredients</h1>
+    <button onclick="window.location.href='{% url 'ingridient_create' %}'" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        Add New Ingredient
+    </button>
+</div>
+
 <table class="min-w-full border border-gray-300">
     <thead class="bg-gray-200 border-b">
         <tr>
@@ -20,21 +26,21 @@
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ ingridient.unit }}</td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ ingridient.unit_price }}</td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    <button onclick="window.location.href= "{% url 'ingridient_update' ingridient.id %}" class = "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <button onclick="window.location.href='{% url 'ingridient_update' ingridient.id %}'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Edit
                     </button>
-                
                     <button onclick="window.location.href='{% url 'ingridient_delete' ingridient.id %}'" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2">
                         Delete
                     </button>
+                </td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
-</div>
+
 <div>
-<h2 class="text-2xl font-bold mt-4"> Total ingridients: {{ total_ingridients }}</h2>
-<h2 class = "text-2xl font-bold mt-4"> Total value: {{ total_value }}</h2>
+    <h2 class="text-2xl font-bold mt-4">Total ingredients: {{ total_ingridients }}</h2>
+    <h2 class="text-2xl font-bold mt-4">Total value: {{ total_value }}</h2>
 </div>
 
 {% endblock %}
